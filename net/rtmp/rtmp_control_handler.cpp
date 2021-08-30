@@ -280,6 +280,7 @@ int rtmp_control_handler::handle_rtmp_play_command(uint32_t stream_id, std::vect
     session_->req_.key_ += "/";
     session_->req_.key_ += stream_name;
     
+    log_infof("rtmp play is ready, key:%s", session_->req_.key_.c_str());
     return send_rtmp_play_resp();
 }
 
@@ -331,7 +332,7 @@ int rtmp_control_handler::send_set_chunksize(uint32_t chunk_size) {
     chunk_stream set_chunk_size_cs(session_, 0, 3, session_->get_chunk_size());
     set_chunk_size_cs.gen_control_message(RTMP_CONTROL_SET_CHUNK_SIZE, 4, chunk_size);
 
-    log_infof("send ctrl message chunk size:%u", chunk_size);
+    //log_infof("send ctrl message chunk size:%u", chunk_size);
     session_->rtmp_send(set_chunk_size_cs.chunk_all_ptr_);
     return 0;
 }
@@ -675,7 +676,7 @@ int rtmp_control_handler::handle_rtmp_control_message(CHUNK_STREAM_PTR cs_ptr) {
             return -1;
         }
         session_->set_chunk_size(read_4bytes((uint8_t*)cs_ptr->chunk_data_ptr_->data()));
-        log_infof("update chunk size:%u", session_->get_chunk_size());
+        //log_infof("update chunk size:%u", session_->get_chunk_size());
         send_set_chunksize(session_->get_chunk_size());
     } else if (cs_ptr->type_id_ == RTMP_CONTROL_WINDOW_ACK_SIZE) {
         if (cs_ptr->chunk_data_ptr_->data_len() < 4) {

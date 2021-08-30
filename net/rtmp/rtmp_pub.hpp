@@ -87,7 +87,7 @@ inline int get_rtmp_url_info(const std::string& url, std::string& host, uint16_t
     int tcurl_len = 0;
 
     tcurl_len += snprintf(tcurl_sz + tcurl_len, sizeof(tcurl_sz) - tcurl_len, "rtmp://");
-    for (int index = 0; index < info_vec.size() - 1; index++) {
+    for (size_t index = 0; index < info_vec.size() - 1; index++) {
         if (index == 0) {
             tcurl_len += snprintf(tcurl_sz + tcurl_len, sizeof(tcurl_sz) - tcurl_len, "%s", info_vec[index].c_str());
         } else {

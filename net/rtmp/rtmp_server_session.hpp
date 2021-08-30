@@ -64,12 +64,6 @@ private:
 
 private:
     rtmp_server_handshake hs_;
-    rtmp_request req_;
-    uint32_t stream_id_ = 1;
-
-private:
-    uint32_t remote_window_acksize_ = 2500000;
-    uint32_t ack_received_          = 0;
 
 private:
     rtmp_writer* play_writer_ = nullptr;
